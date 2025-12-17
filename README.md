@@ -1,52 +1,30 @@
-# Maven Java SonarQube CI Workflow
+# Maven Java CI/CD Starter
 
-Reusable GitHub Actions workflow for building Maven projects with SonarQube analysis on self-hosted runners. 
+A minimal Maven Java project with **Google Java Format linting** and **JaCoCo coverage enforcement (85%+)** for CI/CD readiness (GitHub Actions).[file:1][web:8][web:26]
 
-## Overview
+## 🚀 Quick Start
 
-This repository provides a callable GitHub Actions workflow (`build.yml`) that automates Maven builds (`mvn verify`) and SonarQube code analysis. It triggers on pushes to `main`, pull requests (opened/synchronize/reopened), or calls from other workflows. Caching optimizes SonarQube and Maven dependencies. After execution, detailed code quality reports, including bugs, vulnerabilities, and coverage, appear in your SonarQube dashboard.
+Lint, test, and check coverage (fails if <85%)
+mvn clean verify
 
-## Prerequisites
+Auto-format code (Google style)
+mvn fmt:format
 
-- Self-hosted GitHub runner configured with JDK 11, Maven, and SonarQube scanner.
-- SonarQube server accessible via URL.
-- Repository secrets: `SONAR_TOKEN` and `SONAR_HOST_URL`. `GITHUB_TOKEN` is automatic.
-
-## Setup Secrets
-
-Add secrets in repo **Settings > Secrets and variables > Actions > New repository secret**. 
-
-| Secret Name     | Value Description                          |
-|-----------------|--------------------------------------------|
-| SONAR_HOST_URL | Your SonarQube server URL (e.g., `https://sonarqube.example.com`) |
-| SONAR_TOKEN    | User token from SonarQube (generate below)  |
-
-## Generate SonarQube Token
-
-Log into SonarQube > **My Account > Security > Generate Tokens > User Token**. Enter name (e.g., "GitHub Actions"), set expiry, generate, and copy the token immediately.  
-
-## Workflow Breakdown
-
-The workflow scans a Java Maven app for quality issues via SonarQube.
+View coverage report
+open target/site/jacoco/index.html
 
 
-**How it works**: Checks out code, sets up Java, caches tools, builds/tests the Maven project (`verify`), executes SonarQube scanner to analyze for bugs/duplications/coverage/security, and uploads report. `GITHUB_TOKEN` allows PR comments/status checks. View full report post-run in SonarQube UI (project dashboard).
+## 🔧 Key Plugins
 
-## Usage
+| Plugin | Purpose | Commands |
+|--------|---------|----------|
+| [fmt-maven-plugin](https://github.com/spotify/fmt-maven-plugin) | Google Java Format: 2-space indent, braces, imports. Matches PMI style guide. | `mvn fmt:check`<br>`mvn fmt:format`[web:8] |
+| [JaCoCo](https://www.eclemma.org/jacoco/) | 85% line coverage gate (bundle). Reports HTML/XML. | Bound to `verify` |
+| JUnit 5 + Surefire | Modern unit tests. | Runs in `test` phase |
 
-**Automatic**: Push/PR triggers analysis.
+## 📋 Workflow
+- **Pre-commit**: `mvn fmt:format && mvn test`
+- **CI**: `.github/workflows/lint-test.yml` (runs on push/PR).
+- **Example**: `App.java` + `AppTest.java` achieve 100% coverage.
 
-**Call externally**:
-Same Repo
-jobs:
-  trigger-build:
-    uses: ./.github/workflows/build.yml@main  # Relative path, current main branch
-    secrets: inherit
-
-Cross Repo
-jobs:
-  trigger-build:
-    uses: your-org/target-repo/.github/workflows/build.yml@main
-    secrets:
-      inherit  # Or specific: SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
+Add your code/tests—extend `pom.xml` for deps (e.g., Spring Boot).
