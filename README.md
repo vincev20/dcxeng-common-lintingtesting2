@@ -1,6 +1,6 @@
 # Maven Java CI/CD Starter
 
-A minimal Maven Java project with **Google Java Format linting** and **JaCoCo coverage enforcement (85%+)** for CI/CD readiness (GitHub Actions).[file:1][web:8][web:26]
+A minimal Maven Java project with **Google Java Format linting** and **JaCoCo coverage enforcement (85%+)** for CI/CD readiness (GitHub Actions).
 
 ## 🚀 Quick Start
 
