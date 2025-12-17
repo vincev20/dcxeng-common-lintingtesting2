@@ -18,7 +18,7 @@ open target/site/jacoco/index.html
 
 | Plugin | Purpose | Commands |
 |--------|---------|----------|
-| [fmt-maven-plugin](https://github.com/spotify/fmt-maven-plugin) | Google Java Format: 2-space indent, braces, imports. Matches PMI style guide. | `mvn fmt:check`<br>`mvn fmt:format`[web:8] |
+| [fmt-maven-plugin](https://github.com/spotify/fmt-maven-plugin) | Google Java Format: 2-space indent, braces, imports. Matches PMI style guide. | `mvn fmt:check`<br>`mvn fmt:format`|
 | [JaCoCo](https://www.eclemma.org/jacoco/) | 85% line coverage gate (bundle). Reports HTML/XML. | Bound to `verify` |
 | JUnit 5 + Surefire | Modern unit tests. | Runs in `test` phase |
 
