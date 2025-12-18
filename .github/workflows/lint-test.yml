@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: vincev20/dcxeng-common-lintingtesting2
+          repository: PMI-DEEP-DCXENG/dcxeng-common-java-linting-testing
           ref: v1.0.0
       
       - name: Set up JDK 17
