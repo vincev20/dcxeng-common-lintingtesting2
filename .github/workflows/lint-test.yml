@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          repository: ${{ github.repository }}
           ref: ${{ github.workflow_sha }}
       
       - name: Set up JDK 17
